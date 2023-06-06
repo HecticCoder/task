@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Page 2</title>
+    <style>
+      /* Add some basic styling */
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      ul {
+        list-style-type: none;
+        padding-left: 0;
+      }
+
+      li {
+        margin-bottom: 5px;
+      }
+
+      .checked {
+        text-decoration: line-through;
+      }
+
+      .checkbox-container {
+        display: inline-block;
+        width: 20px;
+        height: 20px;
+        border: 1px solid #000;
+        margin-right: 10px;
+        text-align: center;
+        line-height: 18px;
+        cursor: pointer;
+      }
+
+      .checkbox-container.checked {
+        background-color: #000;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Page 2</h1>
+
+    <ul id="textboxList"></ul>
+
+    <script>
+      // Function to parse URL parameters and extract data
+      function getURLData() {
+        var urlParams = new URLSearchParams(window.location.search);
+        var dataParam = urlParams.get("data");
+
+        var data = JSON.parse(dataParam);
+        return data;
+      }
+
+      // Function to update the textbox list with checked items only
+      function updateTextBoxList(data) {
+        var textboxList = document.getElementById("textboxList");
+        textboxList.innerHTML = ""; // Clear the previous list
+
+        // Counter for numbering the checkboxes
+        var checkboxCounter = 1;
+
+        // Loop through the data and create list items for checked checkboxes
+        for (var key in data) {
+          var checkboxChecked = data[key].checked;
+
+          if (checkboxChecked) {
+            var listItem = document.createElement("li");
+            var textboxValue = data[key].value;
+
+            var checkboxContainer = document.createElement("div");
+            checkboxContainer.className = "checkbox-container checked";
+            checkboxContainer.textContent = "✔";
+
+            listItem.appendChild(checkboxContainer);
+
+            var textSpan = document.createElement("span");
+            textSpan.textContent =
+              checkboxCounter + ": " + key + ": " + textboxValue;
+            listItem.appendChild(textSpan);
+
+            listItem.classList.add("checked");
+            textboxList.appendChild(listItem);
+
+            checkboxCounter++;
+          }
+        }
+      }
+
+      // Function to handle checkbox click event
+      function handleCheckboxClick(event) {
+        var checkbox = event.target;
+        var listItem = checkbox.parentNode;
+
+        if (checkbox.checked) {
+          listItem.classList.add("checked");
+          checkbox.classList.add("checked");
+        } else {
+          listItem.classList.remove("checked");
+          checkbox.classList.remove("checked");
+        }
+      }
+
+      // Get the data from the URL and update the textbox list
+      var data = getURLData();
+      updateTextBoxList(data);
+
+      // Add event listeners to the checkboxes
+      var checkboxes = document.querySelectorAll("input[type='checkbox']");
+      checkboxes.forEach(function (checkbox) {
+        checkbox.addEventListener("click", handleCheckboxClick);
+      });
+    </script>
+  </body>
+</html>

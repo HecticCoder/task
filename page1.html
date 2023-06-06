@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Page 1</title>
+    <style>
+      /* Add some basic styling */
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+      }
+
+      input[type="text"] {
+        margin-bottom: 10px;
+      }
+
+      .checkbox-group {
+        margin-bottom: 10px;
+      }
+
+      .checkbox-group label {
+        display: inline-block;
+        margin-right: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Page 1</h1>
+
+    <form id="myForm">
+      <div class="textbox-group">
+        <label for="textbox1">Textbox 1:</label>
+        <input type="text" id="textbox1" />
+        <br />
+        <div class="checkbox-group">
+          <label> <input type="checkbox" id="checkbox1" /></label>
+        </div>
+      </div>
+
+      <div class="textbox-group">
+        <label for="textbox2">Textbox 2:</label>
+        <input type="text" id="textbox2" />
+        <br />
+        <div class="checkbox-group">
+          <label> <input type="checkbox" id="checkbox2" /></label>
+        </div>
+      </div>
+      <div class="textbox-group">
+        <label for="textbox3">Textbox 2:</label>
+        <input type="text" id="textbox2" />
+        <br />
+        <div class="checkbox-group">
+          <label> <input type="checkbox" id="checkbox2" /></label>
+        </div>
+      </div>
+      <div class="textbox-group">
+        <label for="textbox4">Textbox 2:</label>
+        <input type="text" id="textbox2" />
+        <br />
+        <div class="checkbox-group">
+          <label> <input type="checkbox" id="checkbox2" /></label>
+        </div>
+      </div>
+      <div class="textbox-group">
+        <label for="textbox5">Textbox 2:</label>
+        <input type="text" id="textbox2" />
+        <br />
+        <div class="checkbox-group">
+          <label> <input type="checkbox" id="checkbox2" /></label>
+        </div>
+      </div>
+      <div class="textbox-group">
+        <label for="textbox6">Textbox 2:</label>
+        <input type="text" id="textbox2" />
+        <br />
+        <div class="checkbox-group">
+          <label> <input type="checkbox" id="checkbox2" /></label>
+        </div>
+      </div>
+      <div class="textbox-group">
+        <label for="textbox7">Textbox 2:</label>
+        <input type="text" id="textbox2" />
+        <br />
+        <div class="checkbox-group">
+          <label> <input type="checkbox" id="checkbox2" /></label>
+        </div>
+      </div>
+
+      <!-- Add more textbox groups as needed -->
+
+      <button type="submit">Submit</button>
+    </form>
+
+    <script>
+      // Function to handle form submission
+      function submitForm(event) {
+        event.preventDefault(); // Prevent the form from submitting normally
+
+        var data = {};
+
+        // Loop through each textbox group
+        var textboxGroups = document.querySelectorAll(".textbox-group");
+        textboxGroups.forEach(function (textboxGroup, index) {
+          var textbox = textboxGroup.querySelector('input[type="text"]');
+          var checkbox = textboxGroup.querySelector('input[type="checkbox"]');
+
+          var textboxValue = textbox.value;
+          var checkboxValue = checkbox.checked;
+
+          // Add the textbox value and checkbox value to the data object
+          data["textbox" + (index + 1)] = {
+            value: textboxValue,
+            checked: checkboxValue,
+          };
+        });
+
+        // Send the data to the second page using URL parameters
+        var url = "page2.html?data=" + encodeURIComponent(JSON.stringify(data));
+        window.location.href = url;
+      }
+
+      // Add event listener to the form for submission
+      var myForm = document.getElementById("myForm");
+      myForm.addEventListener("submit", submitForm);
+    </script>
+  </body>
+</html>
